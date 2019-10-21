@@ -29,3 +29,7 @@ OpenGL
 GLFW
 GLEW
 GLUT
+
+## License
+
+MIT
