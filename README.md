@@ -17,7 +17,7 @@ protected:
 };
 ```
   
-Then in main() get the singleton linussjo_engine and add it as the next world.  
+Then in main() get the singleton linussjo_engine and create the example world and then start it with given window size. The window size and the world size does not need to be the same.    
 
 example:
 ```
@@ -31,9 +31,6 @@ int main()
     engine::linussjo_engine *le = &engine::linussjo_engine::getInstance();
     le->show_fps = true;
     auto s = std::make_shared<example_world>(window_width,window_height);
-    auto f = std::make_shared<flappy_world>(window_width,window_height);
-    s->next = f;
-    f->next = s;
     
     le->start(s, window_width, window_height);
 }
