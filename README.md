@@ -41,7 +41,7 @@ make
 ### To run it
 ./test_game
 
-## Dependicies 
+## Dependencies 
 FreeType2
 OpenGL
 GLFW
