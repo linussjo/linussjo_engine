@@ -22,7 +22,7 @@ namespace engine::graphic::shape
         return false;
     }
 
-    text::text(math::vector2d pos, std::string text, const std::shared_ptr<font::font_description> fd) : shape(pos, helper()), content(text), font_description(fd)
+    text::text(math::vector2d pos, const std::string &text, const std::shared_ptr<font::font_description> fd) : shape(pos, helper()), content(text), font_description(fd)
     {
         this->is_static = true;
             

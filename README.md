@@ -42,11 +42,12 @@ make
 ./test_game
 
 ## Dependencies 
-FreeType2
-OpenGL
-GLFW
-GLEW
-GLUT
+FreeType2  
+OpenGL  
+GLFW  
+GLEW  
+GLUT  
+C++17  
 
 ## License
 

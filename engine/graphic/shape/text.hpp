@@ -27,7 +27,7 @@ namespace engine::graphic::shape
 
     class text: public shape{
     public:
-        text(math::vector2d, std::string, const std::shared_ptr<font::font_description>);
+        text(math::vector2d, const std::string &, const std::shared_ptr<font::font_description>);
         virtual ~text();
         GLenum get_type();
         std::string content;
