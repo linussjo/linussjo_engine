@@ -61,33 +61,38 @@ namespace engine::physic
         if(p1->velocity.y != 0)
         {
             p1->pos.y -= displacement_y;
-            if(d.y >= 0.0f)
+            if(this->set_objects_static)
             {
-                p1->velocity.y = 0;
-                //p1->pos.y += -1;
-                p1->is_grounded = true;
-            }
-            else if (d.y < 0.0f)
-            {
-                p1->velocity.y = 0;
-                p1->pos.y += 2;
+                if(d.y >= 0.0f)
+                {
+                    p1->velocity.y = 0;
+                    p1->is_grounded = true;
+                }
+                else if (d.y < 0.0f)
+                {
+                    p1->velocity.y = 0;
+                    p1->pos.y += 2;
+                }
             }
         }
         if(p1->velocity.x != 0)
         {
             p1->pos.x -= displacement_x;
-            if(overlap > 0)
+            if(this->set_objects_static)
             {
-                if(d.x < 0.0f)
+                if(overlap > 0)
                 {
-                    p1->pos.x += 2;
+                    if(d.x < 0.0f)
+                    {
+                        p1->pos.x += 2;
+                    }
+                    else if(d.x > 0.0f)
+                    {
+                        p1->pos.x += -2;
+                    }
+                    if(!p1->is_grounded)
+                        p1->velocity.x *= 0;
                 }
-                else if(d.x > 0.0f)
-                {
-                    p1->pos.x += -2;
-                }
-                if(!p1->is_grounded)
-                    p1->velocity.x *= 0;
             }
         }
         return true;

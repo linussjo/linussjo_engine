@@ -105,7 +105,6 @@ void flappy_world::key_callback(GLFWwindow* window, int key, int scancode, int a
     if (key == GLFW_KEY_UP && action == GLFW_PRESS)
     {
         this->character->velocity.y = -400;
-        this->character->is_grounded = false;
     }
     if (key == GLFW_KEY_DOWN && action == GLFW_PRESS)
     {

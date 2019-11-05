@@ -20,6 +20,7 @@ namespace engine::physic
     class collision_engine{
     public:
         virtual bool handle_collision(const std::shared_ptr<physical_object> &, const std::shared_ptr<physical_object> &);
+        bool set_objects_static{true};
     };
 }
 
