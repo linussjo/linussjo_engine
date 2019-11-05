@@ -12,8 +12,8 @@
 #include <stdio.h>
 #include <functional>
 #include <thread>
-#include "world.hpp"
-#include "text.hpp"
+#include <world.hpp>
+
 
 class start_world: public engine::world{
 public:

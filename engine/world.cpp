@@ -22,7 +22,7 @@ namespace engine
             return true;
     }
 
-void world::append_po_object(graphic::graphic_engine &ge, physic::physics_engine &pe, std::shared_ptr<physic::physical_object> po)
+    void world::append_po_object(graphic::graphic_engine &ge, physic::physics_engine &pe, std::shared_ptr<physic::physical_object> po)
     {
         for(const auto &s : po->object_shapes)
         {
@@ -33,7 +33,7 @@ void world::append_po_object(graphic::graphic_engine &ge, physic::physics_engine
         pe.objects.insert(po);
     }
 
-void world::append_s_object(graphic::graphic_engine &ge, std::shared_ptr<graphic::shape::shape> s)
+    void world::append_s_object(graphic::graphic_engine &ge, std::shared_ptr<graphic::shape::shape> s)
     {
         this->s_objects.insert(s);
         ge.objects.insert(s);

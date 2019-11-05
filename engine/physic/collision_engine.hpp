@@ -11,7 +11,6 @@
 
 #include <stdio.h>
 #include <memory>
-#include <glm/glm.hpp>
 
 #include "math.hpp"
 #include "physical_object.hpp"

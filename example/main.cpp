@@ -1,10 +1,4 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <thread>
-
-#include "linussjo_engine.hpp"
+#include <linussjo_engine.hpp>
 #include "flappy_world.hpp"
 #include "start_world.hpp"
 

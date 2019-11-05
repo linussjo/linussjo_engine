@@ -1,6 +1,8 @@
 test_game
 cmake_install.cmake
+.vscode
 CmakeFiles
 Makefile
 CMakeCache.txt
 .DS_store
+*.a

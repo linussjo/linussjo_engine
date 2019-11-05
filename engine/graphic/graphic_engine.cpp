@@ -104,7 +104,6 @@ namespace engine::graphic
             this->fps_text->draw(this->width, this->height);
             // put the stuff we've been drawing onto the display
             glfwSwapBuffers(this->window);
-            // update other events like input handling
         }
         else
         {
