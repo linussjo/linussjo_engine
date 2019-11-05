@@ -36,9 +36,19 @@ int main()
 }
 ```
 ## To build it
+### Engine
+In the directory engine, run:
 cmake .  
 make
-### To run it
+
+### example
+To create the examples and link the engine:
+(First build the static engine library)
+In the diectory example, run:
+cmake .  
+make
+
+#### To run the example
 ./test_game
 
 ## Dependencies 
