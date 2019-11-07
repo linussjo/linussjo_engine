@@ -14,6 +14,7 @@ if(EXISTS "./libengine.a")
 
     add_definitions( -DSHADERS_RESOURCE=std::string\("${PROJECT_BINARY_DIR}/resources/shaders"\))
     add_definitions( -DFONTS_RESOURCE=std::string\("${PROJECT_BINARY_DIR}/resources/fonts"\))
+    add_definitions( -DIMG_RESOURCE=std::string\("${PROJECT_BINARY_DIR}/img"\))
 
     include_directories("${CMAKE_SOURCE_DIR}/../engine")
     include_directories("${CMAKE_SOURCE_DIR}/../engine/graphic/font")
@@ -21,6 +22,7 @@ if(EXISTS "./libengine.a")
     include_directories("${CMAKE_SOURCE_DIR}/../engine/graphic")
     include_directories("${CMAKE_SOURCE_DIR}/../engine/physic/")
     include_directories("${CMAKE_SOURCE_DIR}/../engine/math/")
+    include_directories("${CMAKE_SOURCE_DIR}/../engine/file/")
 
     find_package(OpenGL REQUIRED)
     find_package(GLUT REQUIRED)

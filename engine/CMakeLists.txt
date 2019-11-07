@@ -31,6 +31,7 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/graphic/shape")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/graphic")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/physic/")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/math/")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/file/")
 
 set(engine_source_files
     ${CMAKE_CURRENT_SOURCE_DIR}/linussjo_engine.cpp

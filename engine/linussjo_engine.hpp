@@ -13,7 +13,6 @@
 #include <vector>
 #include <memory>
 #include "world.hpp"
-#include "rectangle.hpp"
 
 namespace engine
 {

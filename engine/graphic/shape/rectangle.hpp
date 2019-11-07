@@ -26,14 +26,15 @@ namespace engine::graphic::shape
     public:
         rectangle(const math::vector2d, length, length);
         virtual ~rectangle();
-        GLenum get_type();
         bool filled = true;
-        int draw(const unsigned int& width, const unsigned int& height);
+        virtual int draw(const unsigned int& width, const unsigned int& height);
         bool has_focus(const math::vector2d &, length, length);
-    private:
-        length width, heigth;
-        static class shader helper();
+    protected:
+        rectangle(const math::vector2d, const class shader &); // should not be exposed public as it only would confuse?
         GLuint VBO,EBO;
+        length width, heigth;
+    private:
+        static class shader helper();
     };
 }
 

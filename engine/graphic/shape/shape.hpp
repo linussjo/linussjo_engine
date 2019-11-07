@@ -21,14 +21,13 @@
 
 namespace engine::graphic::shape
 {
-    typedef const unsigned int length;
+    typedef unsigned int length;
 
     class shape{
     public:
         shape(math::vector2d, class shader);
         shape(class shader);
         color color{0,0,0};
-        virtual GLenum get_type() = 0;
         virtual int draw(const unsigned int&, const unsigned int&) = 0;
         virtual bool has_focus(const math::vector2d &, length, length) = 0;
         GLuint get_graphic_id();

@@ -12,7 +12,7 @@ flappy_world::flappy_world(unsigned int w, unsigned int h) : world(w, h){}
 
 void flappy_world::first_prepare(engine::graphic::graphic_engine &ge, engine::physic::physics_engine &pe)
 {
-    auto re = std::make_shared<engine::graphic::shape::rectangle>(engine::math::vector2d{0,0}, 50,50);
+    auto re = std::make_shared<engine::graphic::shape::texture>(engine::math::vector2d{0,0}, std::string(IMG_RESOURCE+"/8-bit_Andreas.png"), 3);
     auto po = std::make_shared<engine::physic::physical_object>(re);
     auto re1 = std::make_shared<engine::graphic::shape::rectangle>(engine::math::vector2d{60,-20}, 80,20);
     
@@ -26,15 +26,6 @@ void flappy_world::first_prepare(engine::graphic::graphic_engine &ge, engine::ph
     re->color = engine::graphic::color{255,255,255};
     this->character = po;
     this->append_po_object(ge, pe, po);
-    
-    auto t = std::make_shared<engine::graphic::shape::text>(engine::math::vector2d{800,50}, "0", ge.fonts()->ARIAL);
-    t->color = engine::graphic::color{255,255,255};
-    this->points_text = t;
-    this->append_s_object(ge, t);
-    
-    auto t1 = std::make_shared<engine::graphic::shape::text>(engine::math::vector2d{700,50}, "Points:", ge.fonts()->ARIAL);
-    t1->color = engine::graphic::color{255,255,255};
-    this->append_s_object(ge, t1);
 }
 
 void flappy_world::create_obstacles(engine::graphic::graphic_engine &ge, engine::physic::physics_engine &pe)
@@ -75,9 +66,7 @@ void flappy_world::prepare(engine::graphic::graphic_engine &ge, engine::physic::
     this->character->pos = engine::math::vector2d{500,350};
     ge.prepare_draw_for_focus(this->last_pos.x - this->character->pos.x, this->last_pos.y - this->character->pos.y);
     this->character->velocity = engine::math::vector2f{0,0};
-    //this->character->is_affected_by_gravity = false;
-    this->points = 0;
-    this->points_text->content = "0";
+
     this->create_obstacles(ge, pe);
     this->last_pos = this->character->pos;
 }

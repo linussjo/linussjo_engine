@@ -9,11 +9,10 @@
 #ifndef flappy_world_hpp
 #define flappy_world_hpp
 
-#include <stdio.h>
 #include <functional>
 #include <thread>
-#include "world.hpp"
-#include "rectangle.hpp"
+#include <world.hpp>
+#include <texture.hpp>
 
 class flappy_world: public engine::world{
 public:
@@ -27,8 +26,6 @@ private:
     std::shared_ptr<engine::physic::physical_object> character;
     std::shared_ptr<engine::physic::physical_object> upper_obstacle;
     std::shared_ptr<engine::physic::physical_object> lower_obstacle;
-    std::shared_ptr<engine::graphic::shape::text> points_text;
-    int points = 0;
     void create_obstacles(engine::graphic::graphic_engine &ge, engine::physic::physics_engine &pe);
     engine::math::vector2d last_pos;
     

@@ -24,8 +24,14 @@ namespace engine::graphic::shape
         glGenVertexArrays(1, &VAO);
         this->set_graphic_id(VAO);
     }
-    GLenum rectangle::get_type(){
-        return GL_TRIANGLES;
+
+    rectangle::rectangle(const math::vector2d pos, const class shader &s) : shape(pos, s)
+    {
+        GLuint VAO;
+        glGenBuffers(1, &this->VBO);
+        glGenBuffers(1, &this->EBO);
+        glGenVertexArrays(1, &VAO);
+        this->set_graphic_id(VAO);
     }
     
     bool rectangle::has_focus(const math::vector2d &focus_pos, length width, length height)

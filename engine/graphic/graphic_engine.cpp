@@ -58,7 +58,7 @@ namespace engine::graphic
         this->ff = std::make_shared<const font::font_factory>();
         
         this->fps_text = std::make_shared<shape::text>(math::vector2d{(int)this->width-70,(int)this->height-10}, "FPS: 0", this->ff->ARIAL);
-        this->fps_text->size = 30;
+        this->fps_text->size = 20;
         this->fps_text->color = color{255, 0, 0};
 
     }

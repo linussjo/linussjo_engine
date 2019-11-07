@@ -29,7 +29,6 @@ namespace engine::graphic::shape
     public:
         text(const math::vector2d &, const std::string &, const std::shared_ptr<font::font_description> &);
         virtual ~text();
-        GLenum get_type();
         std::string content;
         int draw(const unsigned int& width, const unsigned int& height);
         bool has_focus(const math::vector2d &, length, length);

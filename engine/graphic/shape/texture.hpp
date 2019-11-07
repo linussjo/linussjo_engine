@@ -10,21 +10,25 @@
 #define texture_hpp
 
 #include <stdio.h>
-#include "shape.hpp"
+#include "rectangle.hpp"
 
 namespace engine::graphic::shape
 {
-    class texture : public shape
+    const auto tex_vert = SHADERS_RESOURCE+"/texture.vert";
+    const auto tex_frag = SHADERS_RESOURCE+"/texture.frag";
+    class texture : public rectangle
     {
     public:
-        texture(const math::vector2d, const std::string &);
+        texture(const math::vector2d &, const std::string &);
+        texture(const math::vector2d &pos, const std::string &path, const unsigned int scale);
         virtual ~texture();
-        GLenum get_type();
-        bool filled = true;
-        int draw(const unsigned int& width, const unsigned int& height);
-        bool has_focus(const math::vector2d &, length, length);
+        virtual int draw(const unsigned int& width, const unsigned int& height);
+        GLuint render_type {GL_NEAREST};
     private:
-        
+        GLuint tex;
+        unsigned int scale {1};
+        static class shader helper();
+        void setup(const math::vector2d &, const std::string &p);
     };
 }
 

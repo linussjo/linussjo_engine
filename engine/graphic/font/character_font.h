@@ -21,7 +21,7 @@ namespace engine::graphic::font
         
         character_font(const GLuint tid, const glm::ivec2 s, const glm::ivec2 b, const GLuint a) : TextureID(tid), Size(s), Bearing(b), Advance(a) {}
         
-        ~character_font() // would rather only have this a storage unit, but someone has to destroy the allocated memory :<
+        ~character_font() // would rather only have this as a storage unit, but someone has to destroy the allocated memory :<
         {
             glDeleteTextures(1, &this->TextureID);
         }

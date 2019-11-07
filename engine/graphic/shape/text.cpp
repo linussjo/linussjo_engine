@@ -92,11 +92,6 @@ namespace engine::graphic::shape
         glBindTexture(GL_TEXTURE_2D, 0);
         return this->get_graphic_id();
     }
-
-    GLenum text::get_type()
-    {
-        return 0;
-    }
     
     text::~text()
     {
