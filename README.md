@@ -37,16 +37,16 @@ int main()
 ```
 ## To build it
 ### Engine
-In the directory engine, run:
+In the directory engine, run:  
 cmake .  
-make
+make  
 
 ### example
 To create the examples and link the engine:
 (First build the static engine library)
-In the diectory example, run:
+In the diectory example, run:  
 cmake .  
-make
+make  
 
 #### To run the example
 ./test_game
