@@ -12,9 +12,10 @@ flappy_world::flappy_world(unsigned int w, unsigned int h) : world(w, h){}
 
 void flappy_world::first_prepare(engine::graphic::graphic_engine &ge, engine::physic::physics_engine &pe)
 {
-    auto re = std::make_shared<engine::graphic::shape::texture>(engine::math::vector2d{0,0}, std::string(IMG_RESOURCE+"/8-bit_Andreas.png"), 3);
-    auto po = std::make_shared<engine::physic::physical_object>(re);
-    auto re1 = std::make_shared<engine::graphic::shape::rectangle>(engine::math::vector2d{60,-20}, 80,20);
+    this->right = std::make_shared<engine::graphic::shape::texture>(engine::math::vector2d{0,0}, std::string(IMG_RESOURCE+"/8-bit_Andreas.png"), 3);
+    this->left = std::make_shared<engine::graphic::shape::texture>(engine::math::vector2d{0,0}, std::string(IMG_RESOURCE+"/8-bit_AndreasLeft.png"), 3);
+    auto po = std::make_shared<engine::physic::physical_object>(this->right);
+    this->left->is_visible = false;
     
     po->pos = engine::math::vector2d{200,350};
     po->velocity.y = 1500;
@@ -22,9 +23,9 @@ void flappy_world::first_prepare(engine::graphic::graphic_engine &ge, engine::ph
     po->is_affected_by_gravity = true;
     po->width = 50;
     po->height = 50;
-    
-    re->color = engine::graphic::color{255,255,255};
+
     this->character = po;
+    this->character->insert_shape(this->left);
     this->append_po_object(ge, pe, po);
 }
 
@@ -76,7 +77,8 @@ void flappy_world::on_iteration(engine::graphic::graphic_engine &ge, engine::phy
     ge.prepare_draw_for_focus(this->last_pos.x - this->character->pos.x, this->last_pos.y - this->character->pos.y);
 }
 
-void flappy_world::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+void flappy_world::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods,
+    engine::graphic::graphic_engine &ge, engine::physic::physics_engine &pe)
 {
     if (key == GLFW_KEY_SPACE && action == GLFW_PRESS && this->character->is_grounded)
     {
@@ -86,10 +88,14 @@ void flappy_world::key_callback(GLFWwindow* window, int key, int scancode, int a
     if (key == GLFW_KEY_LEFT && action == GLFW_PRESS)
     {
         this->character->velocity.x = -300;
+        this->left->is_visible = true;
+        this->right->is_visible = false;
     }
     if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS)
     {
         this->character->velocity.x = 300;
+        this->left->is_visible = false;
+        this->right->is_visible = true;
     }
     if (key == GLFW_KEY_UP && action == GLFW_PRESS)
     {

@@ -99,7 +99,8 @@ namespace engine::graphic
             //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             for (const auto &object : this->objects)
             {
-                object->draw(this->width, this->height);
+                if(object->is_visible)
+                    object->draw(this->width, this->height);
             }
             this->fps_text->draw(this->width, this->height);
             // put the stuff we've been drawing onto the display

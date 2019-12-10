@@ -24,7 +24,7 @@ namespace engine
 
     void world::append_po_object(graphic::graphic_engine &ge, physic::physics_engine &pe, std::shared_ptr<physic::physical_object> po)
     {
-        for(const auto &s : po->object_shapes)
+        for(const auto &s : po->get_shapes())
         {
             this->s_objects.insert(s);
             ge.objects.insert(s);
@@ -41,7 +41,7 @@ namespace engine
 
     void world::remove_po_object(graphic::graphic_engine &ge, physic::physics_engine &pe, std::shared_ptr<physic::physical_object> po)
     {
-        for(const auto &s : po->object_shapes)
+        for(const auto &s : po->get_shapes())
         {
             this->s_objects.erase(s);
             ge.objects.erase(s);
@@ -86,5 +86,11 @@ namespace engine
         this->on_leave(ge, this->pe);
         ge.objects.clear();
         pe.objects.clear();
+    }
+
+    void world::key_callback_wrapper(GLFWwindow* window, int key, int scancode, int action, int mods,
+            graphic::graphic_engine &ge)
+    {
+        this->key_callback(window, key, scancode, action, mods, ge, this->pe);
     }
 }

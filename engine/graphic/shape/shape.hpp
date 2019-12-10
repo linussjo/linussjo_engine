@@ -37,6 +37,7 @@ namespace engine::graphic::shape
         math::vector2d relative_pos;
         bool is_static = false;
         bool is_in_focus = false;
+        bool is_visible = true;
     protected:
         void set_graphic_id(const GLuint gid);
         bool prepared;

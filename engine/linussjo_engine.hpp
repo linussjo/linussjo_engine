@@ -36,6 +36,7 @@ namespace engine
         linussjo_engine() {};
         static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
         static void window_focus_callback(GLFWwindow* window, int focused);
+        std::shared_ptr<graphic::graphic_engine> ge;
         // C++ 03
         // ========
         // Don't forget to declare these two. You want to make sure they

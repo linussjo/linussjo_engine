@@ -30,9 +30,11 @@ namespace engine::physic
         void apply_new_position(const double &time);
         std::vector<math::vector2d> get_points();
         math::vector2d get_mid_pos();
+        void clear_shapes();
+        bool insert_shape(const std::shared_ptr<graphic::shape::shape> &);
+        const std::unordered_set<std::shared_ptr<graphic::shape::shape>> get_shapes();
         
         // variables
-        std::unordered_set<std::shared_ptr<graphic::shape::shape>> object_shapes;
         math::vector2d pos{0,0};
         math::vector2f velocity{0,0};
         unsigned int width{0}, height{0};
@@ -46,6 +48,9 @@ namespace engine::physic
             [](const std::weak_ptr<physical_object> &a, const std::shared_ptr<physical_object> &b){}; // do nothing by default
         std::function<void(const std::weak_ptr<physical_object> &)> on_out_of_bounds =
             [](const std::weak_ptr<physical_object> &a){}; // do nothing by default
+
+    private:
+        std::unordered_set<std::shared_ptr<graphic::shape::shape>> object_shapes;
     };
 }
 

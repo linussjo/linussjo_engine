@@ -62,6 +62,9 @@ namespace engine::graphic::shape
 
     int texture::draw(const unsigned int& width, const unsigned int& height)
     {
+        if(!this->is_visible)
+            return this->get_graphic_id();
+        
         float tl_x = ((float)this->pos.x) / (width/2) - 1.0f;
         float tl_y = ((float)height-this->pos.y) / (height/2) - 1.0f;
         

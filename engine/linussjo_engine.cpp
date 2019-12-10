@@ -19,14 +19,14 @@ namespace engine
 
     void linussjo_engine::start(const unsigned int w, const unsigned int h)
     {
-        graphic::graphic_engine ge(w,h);
-        ge.show_fps = this->show_fps;
+        this->ge = std::make_shared<graphic::graphic_engine>(w,h);
+        this->ge->show_fps = this->show_fps;
         
-        glfwSetKeyCallback(ge.get_window(), linussjo_engine::key_callback);
-        glfwSetWindowFocusCallback(ge.get_window(), window_focus_callback);
+        glfwSetKeyCallback(this->ge->get_window(), linussjo_engine::key_callback);
+        glfwSetWindowFocusCallback(this->ge->get_window(), window_focus_callback);
         while(this->active_world != nullptr)
         {
-            this->active_world->run(ge);
+            this->active_world->run(*this->ge);
             this->active_world = this->active_world->next;
         }
     }
@@ -40,6 +40,6 @@ namespace engine
 
     void linussjo_engine::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
     {
-        linussjo_engine::getInstance().active_world->key_callback(window, key, scancode, action, mods);
+        linussjo_engine::getInstance().active_world->key_callback_wrapper(window, key, scancode, action, mods, *linussjo_engine::getInstance().ge);
     }
 }

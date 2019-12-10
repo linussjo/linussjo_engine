@@ -23,7 +23,8 @@ void start_world::first_prepare(engine::graphic::graphic_engine &ge, engine::phy
     
 }
 
-void start_world::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+void start_world::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods,
+    engine::graphic::graphic_engine &ge, engine::physic::physics_engine &pe)
 {
     if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
     {

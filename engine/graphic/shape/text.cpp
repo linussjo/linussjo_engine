@@ -40,8 +40,8 @@ namespace engine::graphic::shape
         this->set_graphic_id(VAO);
     }
 
-    int text::draw(const unsigned int& width, const unsigned int& height){
-
+    int text::draw(const unsigned int& width, const unsigned int& height)
+    {
         glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(width), 0.0f, static_cast<GLfloat>(height));
         this->shader.use();
         glUniformMatrix4fv(glGetUniformLocation(this->shader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));

@@ -41,6 +41,7 @@ namespace engine::graphic::shape
     }
 
     int rectangle::draw(const unsigned int& width, const unsigned int& height){
+
         this->shader.use();
         // set up vertex data (and buffer(s)) and configure vertex attributes
         // ------------------------------------------------------------------

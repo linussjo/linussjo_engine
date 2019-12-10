@@ -24,7 +24,10 @@ namespace engine
     class world {
     public:
         world(unsigned int, unsigned int);
-        virtual void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {};
+        virtual void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods,
+            graphic::graphic_engine &ge, physic::physics_engine &pe) {};
+        void key_callback_wrapper(GLFWwindow* window, int key, int scancode, int action, int mods,
+            graphic::graphic_engine &ge);
         virtual void window_focus_callback(GLFWwindow* window, int focused) {};
         void append_po_object(graphic::graphic_engine &ge, physic::physics_engine &pe, std::shared_ptr<physic::physical_object> po);
         void remove_po_object(graphic::graphic_engine &ge, physic::physics_engine &pe, std::shared_ptr<physic::physical_object> po);
@@ -42,6 +45,7 @@ namespace engine
         virtual void on_iteration(graphic::graphic_engine &ge, physic::physics_engine &pe) {};
         virtual void on_leave(graphic::graphic_engine &ge, physic::physics_engine &pe) {};
         physic::physics_engine pe;
+        std::shared_ptr<graphic::graphic_engine> ge;
         std::unordered_set<std::shared_ptr<physic::physical_object>> po_objects;
         std::unordered_set<std::shared_ptr<graphic::shape::shape>> s_objects;
         bool initiated = false;

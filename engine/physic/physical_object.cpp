@@ -12,7 +12,6 @@ namespace engine::physic
 {
     physical_object::physical_object(std::shared_ptr<graphic::shape::shape> shape) {
         this->object_shapes.insert(shape);
-        this->apply_new_position(0);
     }
 
     physical_object::~physical_object()
@@ -33,7 +32,6 @@ namespace engine::physic
     void physical_object::handle_intersect(const std::shared_ptr<physical_object> &po)
     {
         this->on_intersect(shared_from_this(), po);
-        //printf("intersect\n");
     }
 
     math::vector2d physical_object::get_mid_pos()
@@ -56,5 +54,30 @@ namespace engine::physic
     void physical_object::handle_out_of_bounds()
     {
         this->on_out_of_bounds(shared_from_this());
+    }
+
+    void physical_object::clear_shapes()
+    {
+        this->object_shapes.clear();
+    }
+
+    bool physical_object::insert_shape(const std::shared_ptr<graphic::shape::shape> &s)
+    {
+
+        if(this->object_shapes.find(s) == this->object_shapes.end())
+        {
+            this->object_shapes.insert(s);
+            s->pos.x = this->pos.x + s->relative_pos.x;
+            s->pos.y = this->pos.y + s->relative_pos.y;
+            
+            return true;
+        }
+        else
+            return false;
+    }
+
+    const std::unordered_set<std::shared_ptr<graphic::shape::shape>> physical_object::get_shapes()
+    {
+        return this->object_shapes;
     }
 }
