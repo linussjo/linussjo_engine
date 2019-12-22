@@ -47,6 +47,8 @@ namespace engine::physic
                || mid_pos.y < -(int)o1->height/2 || mid_pos.y > (int) (this->height+o1->height/2))
                 o1->handle_out_of_bounds();
             
+            bool was_grounded = o1->is_grounded;
+            
             o1->is_grounded = false;
             if(!o1->is_static)
             {
@@ -63,6 +65,8 @@ namespace engine::physic
                         
                 }
             }
+            if(was_grounded && !o1->is_grounded)
+                o1->on_fall(o1);
         }
     }
 }

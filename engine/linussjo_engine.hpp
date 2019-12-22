@@ -28,8 +28,8 @@ namespace engine
         linussjo_engine(le const&) = delete;              // Don't Implement
         void operator=(le const&) = delete; // Don't implement
         std::shared_ptr<world> active_world;
-        void start(const std::shared_ptr<world> &, const unsigned int, const unsigned int);
-        void start(const unsigned int, const unsigned int);
+        void start(const std::string &, const std::shared_ptr<world> &, const unsigned int, const unsigned int);
+        void start(const std::string &, const unsigned int, const unsigned int);
         bool show_fps = false;
         
     private:
@@ -37,6 +37,7 @@ namespace engine
         static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
         static void window_focus_callback(GLFWwindow* window, int focused);
         std::shared_ptr<graphic::graphic_engine> ge;
+        GLFWwindow* window;
         // C++ 03
         // ========
         // Don't forget to declare these two. You want to make sure they

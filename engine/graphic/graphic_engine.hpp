@@ -44,7 +44,6 @@ namespace engine::graphic
     private:
         const unsigned int width, height;
         math::vector2d focus_pos {0,0};
-        GLuint shader_programme;
         GLFWwindow* window;
         bool continue_render;
         std::chrono::high_resolution_clock::time_point tp;

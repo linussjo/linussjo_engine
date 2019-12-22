@@ -18,10 +18,9 @@ void flappy_world::first_prepare(engine::graphic::graphic_engine &ge, engine::ph
     this->left->is_visible = false;
     
     po->pos = engine::math::vector2d{200,350};
-    po->velocity.y = 1500;
     po->velocity.x = 0;
     po->is_affected_by_gravity = true;
-    po->width = 50;
+    po->width = 36;
     po->height = 50;
 
     this->character = po;
