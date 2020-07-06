@@ -9,10 +9,51 @@
 #include "graphic_engine.hpp"
 namespace engine::graphic
 {
+
+    graphic_engine::graphic_engine(unsigned int width, unsigned int height) : graphic_engine(nullptr, width, height){}
+
     graphic_engine::graphic_engine(GLFWwindow *window, unsigned int width, unsigned int height) :
         continue_render(true), width(width), height(height), window(window)
     {
         this->tp = std::chrono::high_resolution_clock::now();
+        // Initialize GLFW
+        glfwInit();
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        #ifdef __APPLE__
+            glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
+        #endif
+        glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+        
+
+        // Create OpenGL window and context
+        if(window == nullptr)
+        {
+            //this->window = glfwCreateWindow(width, height, "OpenGL", glfwGetPrimaryMonitor(), NULL);
+            this->window = glfwCreateWindow(width, height, "OpenGL", NULL, NULL);
+        }
+        else
+            this->window = window;
+        glfwMakeContextCurrent(this->window);
+
+        // Check for window creation failure
+        if (!this->window)
+        {
+            // Terminate GLFW
+            printf("ERROR: could not create window\n");
+            glfwTerminate();
+            this->continue_render = false;
+        }
+        
+        // Initialize GLEW
+        glewExperimental = GL_TRUE;
+        glewInit();
+        
+        //glViewport(0, 0, width, height);
+        //glEnable(GL_CULL_FACE);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         
         this->ff = std::make_shared<const font::font_factory>();
         
@@ -51,18 +92,20 @@ namespace engine::graphic
                 this->fps_text->content = "FPS: " + std::to_string((int)(1/time));
                 this->fps_text->draw(this->width, this->height);
             }
+            // Maintain a certain FPS
+            std::this_thread::sleep_for(std::chrono::microseconds(10000));
             // wipe the drawing surface clear
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
+            //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             for (const auto &object : this->objects)
             {
                 if(object->is_visible)
                     object->draw(this->width, this->height);
             }
+            this->fps_text->draw(this->width, this->height);
             // put the stuff we've been drawing onto the display
             glfwSwapBuffers(this->window);
-            // Maintain a certain FPS, To high makes it not smooth, should investigate?
-            std::this_thread::sleep_for(std::chrono::microseconds(10000));
         }
         else
         {

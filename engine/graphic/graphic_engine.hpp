@@ -48,7 +48,12 @@ namespace engine::graphic
     private:
         void init();
         const unsigned int width, height;
+<<<<<<< HEAD
         math::point2d focus_pos {0,0};
+=======
+        math::vector2d focus_pos {0,0};
+        GLuint shader_programme;
+>>>>>>> parent of 7802ecd... fixed new tests and changed responsiblility of creating the window and settings to linussjo_engine from graphic_engine
         GLFWwindow* window;
         bool continue_render;
         std::chrono::high_resolution_clock::time_point tp;

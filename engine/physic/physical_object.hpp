@@ -49,10 +49,6 @@ namespace engine::physic
             [](const std::weak_ptr<physical_object> &a, const std::shared_ptr<physical_object> &b){}; // do nothing by default
         std::function<void(const std::weak_ptr<physical_object> &)> on_out_of_bounds =
             [](const std::weak_ptr<physical_object> &a){}; // do nothing by default
-        std::function<void(const std::weak_ptr<physical_object> &)> on_fall =
-            [](const std::weak_ptr<physical_object> &a){}; // do nothing by default
-        std::function<void(const std::weak_ptr<physical_object> &)> on_lands =
-            [](const std::weak_ptr<physical_object> &a){}; // do nothing by default
 
     private:
         std::unordered_set<std::shared_ptr<graphic::shape::shape>> object_shapes;

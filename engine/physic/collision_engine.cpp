@@ -67,7 +67,6 @@ namespace engine::physic
                 {
                     p1->velocity.y = 0;
                     p1->is_grounded = true;
-                    p1->on_lands(p1);
                 }
                 else if (d.y < 0.0f)
                 {
