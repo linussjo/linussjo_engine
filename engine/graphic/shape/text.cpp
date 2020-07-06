@@ -16,13 +16,13 @@ namespace engine::graphic::shape
         return s;
     }
     
-    bool text::has_focus(const math::vector2d &focus_pos, length width, length height)
+    bool text::has_focus(const math::point2d &focus_pos, length width, length height)
     {
         // to be implemented
         return false;
     }
 
-    text::text(const math::vector2d &pos, const std::string &text, const std::shared_ptr<font::font_description> &fd) : shape(pos, helper()), content(text), font_description(fd)
+    text::text(const math::point2d &pos, const std::string &text, const std::shared_ptr<font::font_description> &fd) : shape(pos, helper()), content(text), font_description(fd)
     {
         this->is_static = true;
             

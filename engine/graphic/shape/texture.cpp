@@ -18,17 +18,17 @@ namespace engine::graphic::shape
         return s;
     }
 
-    texture::texture(const math::vector2d &pos, const std::string &path) : rectangle(pos, helper())
+    texture::texture(const math::point2d &pos, const std::string &path) : rectangle(pos, helper())
     {
         this->setup(pos, path);
     }
 
-    texture::texture(const math::vector2d &pos, const std::string &path, const unsigned int scale) : rectangle(pos, helper()), scale(scale)
+    texture::texture(const math::point2d &pos, const std::string &path, const unsigned int scale) : rectangle(pos, helper()), scale(scale)
     {
         this->setup(pos, path);
     }
 
-    void texture::setup(const math::vector2d &pos, const std::string &path)
+    void texture::setup(const math::point2d &pos, const std::string &path)
     {
         glGenTextures(1, &this->tex);
         glBindTexture(GL_TEXTURE_2D, this->tex);

@@ -9,26 +9,23 @@
 #include "start_world.hpp"
 
 
-start_world::start_world(unsigned int w, unsigned int h) : world(w, h){}
+start_world::start_world(const std::shared_ptr<engine::graphic::graphic_engine> &ge, unsigned int w, unsigned int h) : world(ge, w, h){}
 
-void start_world::first_prepare(engine::graphic::graphic_engine &ge, engine::physic::physics_engine &pe)
+void start_world::first_prepare()
 {
-    auto t = std::make_shared<engine::graphic::shape::text>(engine::math::vector2d{400,150}, "Flappy Copy", ge.fonts()->ARIAL);
+    auto t = std::make_shared<engine::graphic::shape::text>(engine::math::point2d{410,200}, "Flappy Copy", this->get_graphic_engine()->fonts()->ARIAL);
     t->color = engine::graphic::color{30,190,30};
-    this->append_s_object(ge, t);
-    
-    auto t1 = std::make_shared<engine::graphic::shape::text>(engine::math::vector2d{410,300}, "Start Game", ge.fonts()->ARIAL);
-    t1->color = engine::graphic::color{30,190,30};
-    this->append_s_object(ge, t1);
-    
-}
+    this->append_s_object(t);
 
-void start_world::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods,
-    engine::graphic::graphic_engine &ge, engine::physic::physics_engine &pe)
-{
-    if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
-    {
+
+    auto componet = std::make_shared<engine::input::component::button>("Start Game", engine::math::point2d{410,300});
+    componet->set_size(300,80);
+    componet->set_text_color(engine::graphic::color{255,255,255});
+
+    componet->on_key_press = [this](){
         this->continue_run = false;
-    }
+    };
+    this->append_component(componet);
+    
 }
 

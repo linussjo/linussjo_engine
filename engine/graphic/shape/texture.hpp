@@ -19,8 +19,8 @@ namespace engine::graphic::shape
     class texture : public rectangle
     {
     public:
-        texture(const math::vector2d &, const std::string &);
-        texture(const math::vector2d &pos, const std::string &path, const unsigned int scale);
+        texture(const math::point2d &, const std::string &);
+        texture(const math::point2d &pos, const std::string &path, const unsigned int scale);
         virtual ~texture();
         virtual int draw(const unsigned int& width, const unsigned int& height);
         GLuint render_type {GL_NEAREST};
@@ -28,7 +28,7 @@ namespace engine::graphic::shape
         GLuint tex;
         unsigned int scale {1};
         static class shader helper();
-        void setup(const math::vector2d &, const std::string &p);
+        void setup(const math::point2d &, const std::string &p);
     };
 }
 

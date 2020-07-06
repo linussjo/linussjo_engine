@@ -23,24 +23,24 @@ add_subdirectory(math)
 add_subdirectory(graphic)
 add_subdirectory(graphic/font)
 add_subdirectory(graphic/shape)
+add_subdirectory(input)
+add_subdirectory(input/component)
 add_subdirectory(physic)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/graphic/font")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/graphic/shape")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/graphic")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/input")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/input/component")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/physic/")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/math/")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/file/")
 
 set(engine_source_files
     ${CMAKE_CURRENT_SOURCE_DIR}/linussjo_engine.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/linussjo_engine.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/thread_dispatcher.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/thread_dispatcher.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/world_state.h
     ${CMAKE_CURRENT_SOURCE_DIR}/world.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/world.hpp
 )
 
 add_library(engine STATIC ${engine_source_files} 
@@ -49,4 +49,6 @@ add_library(engine STATIC ${engine_source_files}
     ${engine_graphic_font_source_files}
     ${engine_graphic_shape_source_files}
     ${engine_graphic_source_files}
+    ${engine_input_source_files}
+    ${engine_input_component_source_files}
 )

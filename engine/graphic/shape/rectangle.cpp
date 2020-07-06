@@ -16,7 +16,7 @@ namespace engine::graphic::shape
         return s;
     }
 
-    rectangle::rectangle(const math::vector2d pos, length h, length w) : shape(pos, helper()), heigth(h), width(w)
+    rectangle::rectangle(const math::point2d &pos, length h, length w) : shape(pos, helper()), heigth(h), width(w)
     {
         GLuint VAO;
         glGenBuffers(1, &this->VBO);
@@ -25,7 +25,7 @@ namespace engine::graphic::shape
         this->set_graphic_id(VAO);
     }
 
-    rectangle::rectangle(const math::vector2d pos, const class shader &s) : shape(pos, s)
+    rectangle::rectangle(const math::point2d &pos, const class shader &s) : shape(pos, s)
     {
         GLuint VAO;
         glGenBuffers(1, &this->VBO);
@@ -34,7 +34,7 @@ namespace engine::graphic::shape
         this->set_graphic_id(VAO);
     }
     
-    bool rectangle::has_focus(const math::vector2d &focus_pos, length width, length height)
+    bool rectangle::has_focus(const math::point2d &focus_pos, length width, length height)
     {
         // to be implemented
         return false;

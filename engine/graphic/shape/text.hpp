@@ -27,12 +27,11 @@ namespace engine::graphic::shape
 
     class text: public shape{
     public:
-        text(const math::vector2d &, const std::string &, const std::shared_ptr<font::font_description> &);
+        text(const math::point2d &, const std::string &, const std::shared_ptr<font::font_description> &);
         virtual ~text();
         std::string content;
         int draw(const unsigned int& width, const unsigned int& height);
-        bool has_focus(const math::vector2d &, length, length);
-        struct color color {0,0,0};
+        bool has_focus(const math::point2d &, length, length);
         unsigned int size {50};
     private:
         GLuint VBO;

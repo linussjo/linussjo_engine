@@ -10,9 +10,9 @@
 
 namespace engine::graphic::shape
 {
-    shape::shape(const math::vector2d pos, class shader s) : pos(pos), relative_pos(pos), prepared(false), shader(s){};
+    shape::shape(const math::point2d pos, class shader s) : pos(pos), relative_pos(pos), prepared(false), shader(s){};
 
-    shape::shape(class shader s) : pos(math::vector2d{0,0}), relative_pos(math::vector2d{0,0}), prepared(false), shader(s){};
+    shape::shape(class shader s) : pos(math::point2d{0,0}), relative_pos(math::point2d{0,0}), prepared(false), shader(s){};
 
     void shape::set_graphic_id(const GLuint gid)
     {

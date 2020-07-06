@@ -15,6 +15,7 @@
 #include <vector>
 
 #include "shape.hpp"
+#include "vector2d.hpp"
 #include "thread_dispatcher.hpp"
 
 namespace engine::physic

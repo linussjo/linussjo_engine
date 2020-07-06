@@ -8,12 +8,12 @@
 
 #include "flappy_world.hpp"
 
-flappy_world::flappy_world(unsigned int w, unsigned int h) : world(w, h){}
+flappy_world::flappy_world(const std::shared_ptr<engine::graphic::graphic_engine> &ge, unsigned int w, unsigned int h) : world(ge, w, h){}
 
-void flappy_world::first_prepare(engine::graphic::graphic_engine &ge, engine::physic::physics_engine &pe)
+void flappy_world::first_prepare()
 {
-    this->right = std::make_shared<engine::graphic::shape::texture>(engine::math::vector2d{0,0}, std::string(IMG_RESOURCE+"/8-bit_Andreas.png"), 3);
-    this->left = std::make_shared<engine::graphic::shape::texture>(engine::math::vector2d{0,0}, std::string(IMG_RESOURCE+"/8-bit_AndreasLeft.png"), 3);
+    this->right = std::make_shared<engine::graphic::shape::texture>(engine::math::point2d{0,0}, std::string(IMG_RESOURCE+"/8-bit_Andreas.png"), 3);
+    this->left = std::make_shared<engine::graphic::shape::texture>(engine::math::point2d{0,0}, std::string(IMG_RESOURCE+"/8-bit_AndreasLeft.png"), 3);
     auto po = std::make_shared<engine::physic::physical_object>(this->right);
     this->left->is_visible = false;
     
@@ -25,12 +25,12 @@ void flappy_world::first_prepare(engine::graphic::graphic_engine &ge, engine::ph
 
     this->character = po;
     this->character->insert_shape(this->left);
-    this->append_po_object(ge, pe, po);
+    this->append_po_object(po);
 }
 
-void flappy_world::create_obstacles(engine::graphic::graphic_engine &ge, engine::physic::physics_engine &pe)
+void flappy_world::create_obstacles()
 {
-    auto re3 = std::make_shared<engine::graphic::shape::rectangle>(engine::math::vector2d{0,0}, 50,2500);
+    auto re3 = std::make_shared<engine::graphic::shape::rectangle>(engine::math::point2d{0,0}, 50,2500);
     auto po3 = std::make_shared<engine::physic::physical_object>(re3);
     po3->height = 50;
     po3->width = 2500;
@@ -38,9 +38,9 @@ void flappy_world::create_obstacles(engine::graphic::graphic_engine &ge, engine:
     po3->is_affected_by_gravity = false;
     po3->is_static = true;
     
-    this->append_po_object(ge, pe, po3);
+    this->append_po_object(po3);
     
-    auto re4 = std::make_shared<engine::graphic::shape::rectangle>(engine::math::vector2d{0,0}, 75,200);
+    auto re4 = std::make_shared<engine::graphic::shape::rectangle>(engine::math::point2d{0,0}, 75,200);
     auto po4 = std::make_shared<engine::physic::physical_object>(re4);
     po4->height = 75;
     po4->width = 200;
@@ -48,9 +48,9 @@ void flappy_world::create_obstacles(engine::graphic::graphic_engine &ge, engine:
     po4->is_affected_by_gravity = false;
     po4->is_static = true;
     
-    this->append_po_object(ge, pe, po4);
+    this->append_po_object(po4);
     
-    auto re5 = std::make_shared<engine::graphic::shape::rectangle>(engine::math::vector2d{0,0}, 200, 50);
+    auto re5 = std::make_shared<engine::graphic::shape::rectangle>(engine::math::point2d{0,0}, 200, 50);
     auto po5 = std::make_shared<engine::physic::physical_object>(re5);
     po5->height = 200;
     po5->width = 50;
@@ -58,26 +58,25 @@ void flappy_world::create_obstacles(engine::graphic::graphic_engine &ge, engine:
     po5->is_affected_by_gravity = false;
     po5->is_static = true;
     
-    this->append_po_object(ge, pe, po5);
+    this->append_po_object(po5);
 }
 
-void flappy_world::prepare(engine::graphic::graphic_engine &ge, engine::physic::physics_engine &pe)
+void flappy_world::prepare()
 {
     this->character->pos = engine::math::vector2d{500,350};
-    ge.prepare_draw_for_focus(this->last_pos.x - this->character->pos.x, this->last_pos.y - this->character->pos.y);
+    this->get_graphic_engine()->prepare_draw_for_focus(this->last_pos.x - this->character->pos.x, this->last_pos.y - this->character->pos.y);
     this->character->velocity = engine::math::vector2f{0,0};
 
-    this->create_obstacles(ge, pe);
+    this->create_obstacles();
     this->last_pos = this->character->pos;
 }
 
-void flappy_world::on_iteration(engine::graphic::graphic_engine &ge, engine::physic::physics_engine &pe)
+void flappy_world::on_iteration()
 {
-    ge.prepare_draw_for_focus(this->last_pos.x - this->character->pos.x, this->last_pos.y - this->character->pos.y);
+    this->get_graphic_engine()->prepare_draw_for_focus(this->last_pos.x - this->character->pos.x, this->last_pos.y - this->character->pos.y);
 }
 
-void flappy_world::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods,
-    engine::graphic::graphic_engine &ge, engine::physic::physics_engine &pe)
+void flappy_world::on_key_input(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     if (key == GLFW_KEY_SPACE && action == GLFW_PRESS && this->character->is_grounded)
     {

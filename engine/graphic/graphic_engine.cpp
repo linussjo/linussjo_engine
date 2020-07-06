@@ -16,9 +16,10 @@ namespace engine::graphic
         
         this->ff = std::make_shared<const font::font_factory>();
         
-        this->fps_text = std::make_shared<shape::text>(math::vector2d{(int)this->width-70,(int)this->height-10}, "FPS: 0", this->ff->ARIAL);
+        this->fps_text = std::make_shared<shape::text>(math::point2d{this->width-70.0,this->height-10.0}, "FPS: 0", this->ff->ARIAL);
         this->fps_text->size = 20;
         this->fps_text->color = color{255, 0, 0};
+        this->fps_text->z_index = 1000000;
 
     }
     
@@ -70,7 +71,7 @@ namespace engine::graphic
         }
     }
     
-    void graphic_engine::prepare_draw_for_focus(const unsigned int moved_width, const unsigned int moved_height)
+    void graphic_engine::prepare_draw_for_focus(const int moved_width, const int moved_height)
     {
         focus_pos.x += moved_width;
         focus_pos.y += moved_height;
@@ -84,7 +85,7 @@ namespace engine::graphic
         }
     }
     
-    math::vector2d graphic_engine::get_focus_pos()
+    math::point2d graphic_engine::get_focus_pos()
     {
         return this->focus_pos;
     }

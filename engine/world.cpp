@@ -11,7 +11,12 @@
 namespace engine
 {
 
-    world::world(unsigned int w, unsigned int h) :pe(w,h), width(w), height(h){}
+    world::world(const std::shared_ptr<graphic::graphic_engine> &ge, unsigned int w, unsigned int h) : graphic_engine(ge),
+     width(w), height(h)
+    {
+        this->physic_engine = this->create_physic_engine(w, h);
+        this->input_handler = input::input_factory::get_factory().get(this->graphic_engine->get_window());
+    }
 
 
     bool world::has_next()
@@ -22,75 +27,98 @@ namespace engine
             return true;
     }
 
-    void world::append_po_object(graphic::graphic_engine &ge, physic::physics_engine &pe, std::shared_ptr<physic::physical_object> po)
+    void world::append_component(const std::shared_ptr<input::component::component> &componet) 
+    {
+        for(const auto &s : componet->get_shapes())
+        {
+            this->append_s_object(s);
+        }
+        this->input_handler->add_component(componet);
+    }
+
+    void world::append_po_object(std::shared_ptr<physic::physical_object> po)
     {
         for(const auto &s : po->get_shapes())
         {
             this->s_objects.insert(s);
-            ge.objects.insert(s);
+            this->graphic_engine->objects.insert(s);
         }
         this->po_objects.insert(po);
-        pe.objects.insert(po);
+        this->physic_engine->objects.insert(po);
     }
 
-    void world::append_s_object(graphic::graphic_engine &ge, std::shared_ptr<graphic::shape::shape> s)
+    void world::append_s_object(std::shared_ptr<graphic::shape::shape> s)
     {
         this->s_objects.insert(s);
-        ge.objects.insert(s);
+        this->graphic_engine->objects.insert(s);
     }
 
-    void world::remove_po_object(graphic::graphic_engine &ge, physic::physics_engine &pe, std::shared_ptr<physic::physical_object> po)
+    void world::remove_po_object(std::shared_ptr<physic::physical_object> po)
     {
         for(const auto &s : po->get_shapes())
         {
             this->s_objects.erase(s);
-            ge.objects.erase(s);
+            this->graphic_engine->objects.erase(s);
         }
         this->po_objects.erase(po);
-        pe.objects.erase(po);
+        this->physic_engine->objects.erase(po);
     }
 
-    void world::remove_s_object(graphic::graphic_engine &ge, std::shared_ptr<graphic::shape::shape> s)
+    void world::remove_s_object(std::shared_ptr<graphic::shape::shape> s)
     {
         this->s_objects.erase(s);
-        ge.objects.erase(s);
+        this->graphic_engine->objects.erase(s);
     }
 
-    void world::run(graphic::graphic_engine &ge)
+    void world::run()
     {
         this->continue_run = true;
         if(!this->initiated){
-            this->first_prepare(ge, this->pe);
+            this->first_prepare();
             this->initiated = true;
         }
         // reinsert stored objects of the world to the physics engine and graphic engine.
-        ge.objects = this->s_objects;
-        pe.objects = this->po_objects;
+        this->graphic_engine->objects = this->s_objects;
+        this->physic_engine->objects = this->po_objects;
         
-        this->prepare(ge, this->pe);
-        this->pe.update_time();
+        this->prepare();
+        this->physic_engine->update_time();
         
         while(this->continue_run)
         {
             // while game is paused, update physic engines time to avoid objects moving very far distances and check for updates in window
             while(this->is_paused){
-                this->pe.update_time();
+                this->physic_engine->update_time();
                 glfwPollEvents();
             }
             glfwPollEvents();
-            this->on_iteration(ge, this->pe);
-            ge.render();
-            this->pe.apply();
-            this->pe.update_time();
+            this->on_iteration();
+            this->graphic_engine->render();
+            this->physic_engine->apply();
+            this->physic_engine->update_time();
         }
-        this->on_leave(ge, this->pe);
-        ge.objects.clear();
-        pe.objects.clear();
+        this->on_leave();
+        this->graphic_engine->objects.clear();
+        this->physic_engine->objects.clear();
     }
 
-    void world::key_callback_wrapper(GLFWwindow* window, int key, int scancode, int action, int mods,
-            graphic::graphic_engine &ge)
+    std::shared_ptr<physic::physics_engine> world::create_physic_engine(unsigned int w, unsigned int h)
     {
-        this->key_callback(window, key, scancode, action, mods, ge, this->pe);
+        return std::make_shared<physic::physics_engine>(w, h);
+    }
+
+    std::shared_ptr<physic::physics_engine> world::get_physic_engine()
+    {
+        return this->physic_engine;
+    }
+
+    std::shared_ptr<graphic::graphic_engine> world::get_graphic_engine()
+    {
+        return this->graphic_engine;
+    }
+
+    std::shared_ptr<input::input_handler> world::get_input_handler()
+    {
+        return this->input_handler;
     }
 }

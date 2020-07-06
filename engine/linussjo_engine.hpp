@@ -19,31 +19,23 @@ namespace engine
     class linussjo_engine {
     typedef linussjo_engine le;
     public:
-        static le& getInstance()
-        {
-            static le instance; // Guaranteed to be destroyed.
-                                  // Instantiated on first use.
-            return instance;
-        };
-        linussjo_engine(le const&) = delete;              // Don't Implement
+        static le& getInstance();
+
+        linussjo_engine(le const&) = delete; // Don't Implement
         void operator=(le const&) = delete; // Don't implement
-        std::shared_ptr<world> active_world;
-        void start(const std::string &, const std::shared_ptr<world> &, const unsigned int, const unsigned int);
-        void start(const std::string &, const unsigned int, const unsigned int);
+
+        void start(const std::function<std::shared_ptr<world>(const std::shared_ptr<engine::graphic::graphic_engine> &,
+                                             const unsigned int, const unsigned int)> &);
         bool show_fps = false;
+        unsigned int width{800}, height{600};
+        std::string title{""};
         
     private:
         linussjo_engine() {};
-        static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
         static void window_focus_callback(GLFWwindow* window, int focused);
+        std::shared_ptr<world> active_world;
         std::shared_ptr<graphic::graphic_engine> ge;
         GLFWwindow* window;
-        // C++ 03
-        // ========
-        // Don't forget to declare these two. You want to make sure they
-        // are unacceptable otherwise you may accidentally get copies of
-        // your singleton appearing.
-        
     };
 }
 #endif /* linussjo_engine_hpp */
