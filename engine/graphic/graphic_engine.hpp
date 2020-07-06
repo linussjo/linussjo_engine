@@ -28,8 +28,9 @@
 namespace engine::graphic
 {
     struct z_index_compare {
+        // Also seem to modify erase functionality for std::set
         bool operator() (const std::shared_ptr<shape::shape>& lhs, const std::shared_ptr<shape::shape>& rhs) const {
-            return lhs->z_index <= rhs->z_index;
+            return lhs->z_index < rhs->z_index;
         }
     };
     class graphic_engine{
@@ -48,12 +49,7 @@ namespace engine::graphic
     private:
         void init();
         const unsigned int width, height;
-<<<<<<< HEAD
         math::point2d focus_pos {0,0};
-=======
-        math::vector2d focus_pos {0,0};
-        GLuint shader_programme;
->>>>>>> parent of 7802ecd... fixed new tests and changed responsiblility of creating the window and settings to linussjo_engine from graphic_engine
         GLFWwindow* window;
         bool continue_render;
         std::chrono::high_resolution_clock::time_point tp;

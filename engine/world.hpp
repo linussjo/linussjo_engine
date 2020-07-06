@@ -27,10 +27,10 @@ namespace engine
     public:
         world(const std::shared_ptr<graphic::graphic_engine> &, unsigned int, unsigned int);
         virtual void window_focus_callback(GLFWwindow* window, int focused) {};
-        void append_po_object(std::shared_ptr<physic::physical_object> po);
-        void remove_po_object(std::shared_ptr<physic::physical_object> po);
-        void append_s_object(std::shared_ptr<graphic::shape::shape> po);
-        void remove_s_object(std::shared_ptr<graphic::shape::shape> po);
+        void append_po_object(const std::shared_ptr<physic::physical_object> &po);
+        void remove_po_object(const std::shared_ptr<physic::physical_object> &po);
+        void append_s_object(const std::shared_ptr<graphic::shape::shape> &po);
+        void remove_s_object(const std::shared_ptr<graphic::shape::shape> &po);
         void append_component(const std::shared_ptr<input::component::component>&);
         virtual void run();
 

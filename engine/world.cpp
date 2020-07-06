@@ -36,7 +36,7 @@ namespace engine
         this->input_handler->add_component(componet);
     }
 
-    void world::append_po_object(std::shared_ptr<physic::physical_object> po)
+    void world::append_po_object(const std::shared_ptr<physic::physical_object> &po)
     {
         for(const auto &s : po->get_shapes())
         {
@@ -47,24 +47,23 @@ namespace engine
         this->physic_engine->objects.insert(po);
     }
 
-    void world::append_s_object(std::shared_ptr<graphic::shape::shape> s)
+    void world::append_s_object(const std::shared_ptr<graphic::shape::shape> &s)
     {
         this->s_objects.insert(s);
         this->graphic_engine->objects.insert(s);
     }
 
-    void world::remove_po_object(std::shared_ptr<physic::physical_object> po)
+    void world::remove_po_object(const std::shared_ptr<physic::physical_object> &po)
     {
         for(const auto &s : po->get_shapes())
         {
-            this->s_objects.erase(s);
-            this->graphic_engine->objects.erase(s);
+            this->remove_s_object(s);
         }
         this->po_objects.erase(po);
         this->physic_engine->objects.erase(po);
     }
 
-    void world::remove_s_object(std::shared_ptr<graphic::shape::shape> s)
+    void world::remove_s_object(const std::shared_ptr<graphic::shape::shape> &s)
     {
         this->s_objects.erase(s);
         this->graphic_engine->objects.erase(s);

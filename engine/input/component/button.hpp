@@ -36,7 +36,7 @@ namespace engine::input::component
 
         void set_text_color(const engine::graphic::color &);
         void set_background_color(const engine::graphic::color &);
-        void set_z_index(unsigned long);
+        void set_z_index(const long long &);
 
     
     private:

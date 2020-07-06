@@ -11,7 +11,6 @@
 namespace engine
 {
 
-<<<<<<< HEAD
     linussjo_engine& linussjo_engine::getInstance()
     {
         static linussjo_engine instance;
@@ -78,21 +77,6 @@ namespace engine
             std::cout << "ERROR: not a defined world to start" << std::endl;
         }
 
-=======
-    void linussjo_engine::start(const std::shared_ptr<world> &world, const unsigned int w, const unsigned int h)
-    {
-        this->active_world = world;
-        this->start(w,h);
-    }
-
-    void linussjo_engine::start(const unsigned int w, const unsigned int h)
-    {
-        this->ge = std::make_shared<graphic::graphic_engine>(w,h);
-        this->ge->show_fps = this->show_fps;
-        
-        glfwSetKeyCallback(this->ge->get_window(), linussjo_engine::key_callback);
-        glfwSetWindowFocusCallback(this->ge->get_window(), window_focus_callback);
->>>>>>> parent of 7802ecd... fixed new tests and changed responsiblility of creating the window and settings to linussjo_engine from graphic_engine
         while(this->active_world != nullptr)
         {
             this->active_world->run();

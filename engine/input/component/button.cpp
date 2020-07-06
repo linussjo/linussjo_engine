@@ -59,7 +59,7 @@ namespace engine::input::component
         this->get_shape()->color = color;
     }
 
-    void button::set_z_index(unsigned long z_index)
+    void button::set_z_index(const long long &z_index)
     {
         this->get_shape()->z_index = z_index;
         this->text_shape->z_index = z_index+1;

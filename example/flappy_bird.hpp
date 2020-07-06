@@ -22,6 +22,7 @@ protected:
     void first_prepare();
     void prepare();
     void on_iteration();
+    void on_leave();
 private:
     std::shared_ptr<engine::physic::physical_object> character;
     std::shared_ptr<engine::physic::physical_object> upper_obstacle;

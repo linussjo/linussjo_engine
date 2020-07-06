@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <vector>
+#include <limits>
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -38,13 +39,17 @@ namespace engine::graphic::shape
         bool is_static = false;
         bool is_in_focus = false;
         bool is_visible = true;
-        unsigned long z_index = 1000;
+        long long z_index = get_z_index_increment();
     protected:
         void set_graphic_id(const GLuint gid);
         bool prepared;
         shader shader;
     private:
         GLuint graphic_id;
+        // Just to get a z_index that increases for each object that is created.
+        // This makes the order of the z index dependent on when the object was created meaning it will be more
+        // Straight forward when creating a new object and it is on the top, rather than undefined.
+        static long long get_z_index_increment();
     };
 }
 #endif /* Shape_hpp */

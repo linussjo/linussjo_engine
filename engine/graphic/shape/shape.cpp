@@ -29,6 +29,13 @@ namespace engine::graphic::shape
         return this->prepared;
     }
 
+    long long shape::get_z_index_increment()
+    {
+        static long long z_index_incr = std::numeric_limits<long long>::min();
+
+        return ++z_index_incr;
+    }
+
     shape::~shape()
     {
         glDeleteVertexArrays(1, &this->graphic_id);
